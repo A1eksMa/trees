@@ -1,10 +1,7 @@
-
-
-
 import random
 
 
-def sid(n=3):
+def sid(n=4):
     ''' Generate random system id '''
     string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     id = ''.join(random.choice(string) for i in range(n))
@@ -33,19 +30,46 @@ def singleton(cls):
     return get_instance
 
 
+@singleton
 class Tree():
     '''
     It's a final class - The Tree.
     '''
 
     def __init__(self):
-        self.nodes = {}
-        self.nodes.update(self.Root().get_dict())
+        self.root = self.Root()
+
+        # Tree like a dictionary:
+        self.dict_nodes = {}
+        self.dict_nodes.update(self.root.get_dict())
+
+        # Tree like a list of Nodes
+        self.list_nodes = []
+        self.list_nodes.append(self.root)
 
 
-    class Node:
-        def __init__(self, node=sid(), parent=None, children=None):
-            self.node = node
+    def add_branch(self, parent=None):
+        self.node = self.Branch(parent=parent)
+
+        # Tree like a dictionary:
+        self.dict_nodes.update(self.node.get_dict())
+
+        # Tree like a list of Nodes
+        self.list_nodes.append(self.node)
+
+    class Node():
+        '''
+        This abstract node of Tree
+        '''
+        class Seed():
+             def __init__(self):
+                self.sid = sid()
+
+        class Children():
+            pass
+
+        def __init__(self, node=None, parent=None, children=None):
+            self.node = node if node is not None else sid()
             self.parent = parent
             self.children = children if children is not None else []
 
@@ -84,9 +108,12 @@ class Tree():
         It's a Root of Tree, singleton class, that parent is None always
         '''
 
-        def __init__(self, node=sid(), parent=None, children=None):
-            super().__init__(node, parent, children)
-            # We have one root, > we can give it unique name
+        def __init__(self, node=None, parent=None, children=None):
+            super().__init__(node if node is not None else sid(),
+                             parent,
+                             children)
+
+            # We have one root,-> we can give it unique name
             self.node = 'root'
 
 
@@ -103,11 +130,11 @@ class Tree():
         It's a Branch of Tree class, that must have a parent
         '''
 
-        def __init__(self, node=sid(), parent=None, children=None):
+        def __init__(self, node=None, parent=None, children=None):
             ''' Set up defaults attributes '''
-            super().__init__(node, parent, children)
-
-            self.node = sid()
+            super().__init__(node if node is not None else sid(),
+                             parent,
+                             children)
 
             while parent is None:
                 parent = input('Set parent: ')
@@ -119,9 +146,11 @@ class Tree():
         This is endpoint of Tree.
         '''
 
-        def __init__(self, node=sid(), parent=None, children=None):
+        def __init__(self, node=None, parent=None, children=None):
             ''' Set up defaults attributes '''
-            super().__init__(node, parent, children)
+            super().__init__(node if node is not None else sid(),
+                             parent,
+                             children)
 
             # The Root has no parent
             self.children = []
