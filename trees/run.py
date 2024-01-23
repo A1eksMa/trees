@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import random
 
 
@@ -183,5 +184,7 @@ def command_mode(unit = ''):
             print('Error:', e)
     return
 
+t=Tree()
+t.add_branch("root")
 
 command_mode('main')
