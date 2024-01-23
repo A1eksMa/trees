@@ -1,3 +1,6 @@
+import random
+
+
 class Tree():
     '''
     It's a main class - The Tree.
@@ -7,8 +10,27 @@ class Tree():
         '''
         This abstract node of Tree
         '''
+
+
         class Seed():
-            pass
+            '''
+            Unique system id (sid): random chars
+            '''
+
+            # Set default longsize of sid
+            __n = 4
+
+            def sid(self, n=__n):
+                '''
+                Generate random system id
+                '''
+                string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                id = ''.join(random.choice(string) for i in range(n))
+                return id
+
+            def __init__(self, id=None):
+                self.sid = id if id is not None else self.sid()
+
 
         class Children():
             pass
