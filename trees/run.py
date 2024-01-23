@@ -173,6 +173,8 @@ class Tree():
             print('The Leaf element has no children')
 
 
+
+
 def command_mode(unit = ''):
     q = None
     command = ''
@@ -184,7 +186,5 @@ def command_mode(unit = ''):
             print('Error:', e)
     return
 
-t=Tree()
-t.add_branch("root")
 
 command_mode('main')
