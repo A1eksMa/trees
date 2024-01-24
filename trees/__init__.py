@@ -31,6 +31,27 @@ class Tree():
             def __init__(self, id=None):
                 self.sid = id if id is not None else self.sid()
 
+            def __repr__(self):
+                return ('Object type: ' +  str(self.__class__)  + '\n' +
+                        'Object ID: ' + str(id(self)) + '\n' +
+                        'System Identificator (sid): ' + self.sid)
+
+            def __str__(self):
+                return self.sid
+
+            def __eq__(self, other):
+                if isinstance(other, Seed):
+                    return self.sid == other.sid
+                return False
+
+            def __hash__(self):
+                return hash(self.sid)
+
+            def __bool__(self):
+                if len(self.sid)==__n:
+                    return True
+                else:
+                    return False
 
         class Children():
             pass
