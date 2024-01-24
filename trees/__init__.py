@@ -40,7 +40,7 @@ class Tree():
                 return self.sid
 
             def __eq__(self, other):
-                if isinstance(other, Seed):
+                if isinstance(other, Tree.Node.Seed):
                     return self.sid == other.sid
                 return False
 
@@ -48,10 +48,12 @@ class Tree():
                 return hash(self.sid)
 
             def __bool__(self):
-                if len(self.sid)==__n:
-                    return True
-                else:
-                    return False
+                if isinstance(self.sid, str) and len(self.sid) == self.__n:
+                    allowed_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                    if all(char in allowed_chars for char in self.sid):
+                        return True
+                return False
+
 
         class Children():
             pass
