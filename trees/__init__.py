@@ -6,6 +6,7 @@ class Tree():
     It's a main class - The Tree.
     '''
 
+    
     class Node():
         '''
         This abstract node of Tree
@@ -26,7 +27,7 @@ class Tree():
                 raise ValueError("Incorrect childrens's element")
             
         def valid_node(self, node):
-            if (node is not None) and (not isinstance(node, self.Seed)):
+            if node is not None and not isinstance(node, self.Seed):
                 raise TypeError("Invalid node type. Expected None or Tree.Node.Seed() object.")
                 
         def valid_parent(self, parent):
@@ -34,8 +35,8 @@ class Tree():
                 raise TypeError("Invalid type of parent's element. Expected None or Tree.Node.Seed() object.")
 
         def valid_children(self, children):
-            if (children is not None):
-                if (not isinstance(children, list)):
+            if children is not None:
+                if not isinstance(children, list):
                     raise TypeError("Invalid children type. Expected None or list.")
                 else:          
                     for i in children:
@@ -43,7 +44,11 @@ class Tree():
                             raise TypeError("Invalid children type. Expected list of Tree.Node.Seed() object.")
 
         def __repr__(self):
-            return f"Node: {self.node}\nParent: {self.parent}\nChildren: {self.children})\n"
+            children = []
+            if self.children is not None:
+                for i in self.children:
+                    children.append(i.sid)
+            return f"Node: {self.node}\nParent: {self.parent}\nChildren: {children})\n"
 
         def __str__(self):
             return self.node.sid
@@ -55,6 +60,7 @@ class Tree():
 
         def __hash__(self):
             return hash(self.node.sid)
+
 
         class Seed():
             '''
