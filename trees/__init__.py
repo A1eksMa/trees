@@ -17,24 +17,30 @@ class Tree():
             self.children = children if children is not None else []
 
         def validate(self, node, parent, children):
-            self.valid(node)
-            self.valid(parent)
-            self.valid(children)
+            self.valid_node(node)
+            self.valid_parent(parent)
+            self.valid_children(children)
+            if node is not None and parent is not None and node==parent:
+                raise ValueError("Incorrect parent's element")
+            if isinstance(children, list) and (node in children or parent in children):
+                raise ValueError("Incorrect childrens's element")
             
-        def valid(self, node):
-            if node is not None and not isinstance(node, self.Seed):
+        def valid_node(self, node):
+            if (node is not None) and (not isinstance(node, self.Seed)):
                 raise TypeError("Invalid node type. Expected None or Tree.Node.Seed() object.")
                 
-        def valid(self, parent):
-            if node is not None and not isinstance(parent, self.Seed):
+        def valid_parent(self, parent):
+            if parent is not None and not isinstance(parent, self.Seed):
                 raise TypeError("Invalid type of parent's element. Expected None or Tree.Node.Seed() object.")
 
-        def valid(self, children):
-            if children is not None and not isinstance(node, list):
-                raise TypeError("Invalid children type. Expected None or list.")
-            for i in children:
-                if not isinstance(i, self.Seed):
-                     raise TypeError("Invalid children type. Expected list of Tree.Node.Seed() object.")
+        def valid_children(self, children):
+            if (children is not None):
+                if (not isinstance(children, list)):
+                    raise TypeError("Invalid children type. Expected None or list.")
+                else:          
+                    for i in children:
+                        if not isinstance(i, self.Seed):
+                            raise TypeError("Invalid children type. Expected list of Tree.Node.Seed() object.")
 
         def __repr__(self):
             return f"Node: {self.node}\nParent: {self.parent}\nChildren: {self.children})\n"
