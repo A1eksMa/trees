@@ -11,7 +11,6 @@ class Tree():
         This abstract node of Tree
         '''
 
-
         class Seed():
             '''
             Unique system id (sid): random chars
@@ -26,6 +25,8 @@ class Tree():
                 '''
                 string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
                 id = ''.join(random.choice(string) for i in range(n))
+                while hash(id) <= 0:
+                    id = ''.join(random.choice(string) for i in range(n))
                 return id
 
             def __init__(self, id=None):
@@ -48,7 +49,7 @@ class Tree():
                 return hash(self.sid)
 
             def __bool__(self):
-                if isinstance(self.sid, str) and len(self.sid) == self.__n:
+                if isinstance(self.sid, str) and len(self.sid) == self.__n and hash(self.sid) > 0:
                     allowed_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
                     if all(char in allowed_chars for char in self.sid):
                         return True
