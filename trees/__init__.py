@@ -10,6 +10,39 @@ class Tree():
         '''
         This abstract node of Tree
         '''
+        def __init__(self, node=None, parent=None, children=None):
+            self.validate(node, parent, children)
+            self.node = node if node is not None else self.Seed()
+            self.parent = parent
+            self.children = children if children is not None else []
+
+        def validate(self, node, parent, children):
+            self.valid(node)
+            self.valid(parent)
+            self.valid(children)
+            
+        def valid(self, node):
+            pass
+                
+        def valid(self, parent):
+            pass
+
+        def valid(self, children):
+            pass 
+
+        def __repr__(self):
+            return f"Node: {self.node}\nParent: {self.parent}\nChildren: {self.children})\n"
+
+        def __str__(self):
+            return self.node.sid
+
+        def __eq__(self, other):
+            if isinstance(other, Tree.Node):
+                return self.node.sid == other.node.sid
+            return False
+
+        def __hash__(self):
+            return hash(self.node.sid)
 
         class Seed():
             '''
@@ -54,10 +87,6 @@ class Tree():
                     if all(char in allowed_chars for char in self.sid):
                         return True
                 return False
-
-
-        class Children():
-            pass
 
 
     # And other classes, based on Node() class:
