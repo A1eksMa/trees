@@ -22,13 +22,19 @@ class Tree():
             self.valid(children)
             
         def valid(self, node):
-            pass
+            if node is not None and not isinstance(node, self.Seed):
+                raise TypeError("Invalid node type. Expected None or Tree.Node.Seed() object.")
                 
         def valid(self, parent):
-            pass
+            if node is not None and not isinstance(parent, self.Seed):
+                raise TypeError("Invalid type of parent's element. Expected None or Tree.Node.Seed() object.")
 
         def valid(self, children):
-            pass 
+            if children is not None and not isinstance(node, list):
+                raise TypeError("Invalid children type. Expected None or list.")
+            for i in children:
+                if not isinstance(i, self.Seed):
+                     raise TypeError("Invalid children type. Expected list of Tree.Node.Seed() object.")
 
         def __repr__(self):
             return f"Node: {self.node}\nParent: {self.parent}\nChildren: {self.children})\n"
