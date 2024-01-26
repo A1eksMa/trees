@@ -71,34 +71,7 @@ class Tree():
 
 
     class Node():
-        '''
-        This abstract node of Tree
-        '''
-        class Seed():
-             def __init__(self):
-                self.sid = sid()
 
-        class Children():
-            pass
-
-        def __init__(self, node=None, parent=None, children=None):
-            self.node = node if node is not None else sid()
-            self.parent = parent
-            self.children = children if children is not None else []
-
-        def add_child(self, child):
-            if not self.children:
-                self.children = [child]
-            elif child in self.children:
-                print(f'Chid {child} already exist')
-            else:
-                self.children.append(child)
-
-        def remove_child(self, child):
-            try:
-                self.children.remove(child)
-            except Exception as e:
-                print(f'Impossible to remove child {child}:', e)
 
         def set_parent(self, parent):
             self.parent = parent

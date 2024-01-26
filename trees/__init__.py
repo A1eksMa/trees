@@ -6,7 +6,7 @@ class Tree():
     It's a main class - The Tree.
     '''
 
-    
+
     class Node():
         '''
         This abstract node of Tree
@@ -25,11 +25,11 @@ class Tree():
                 raise ValueError("Incorrect parent's element")
             if isinstance(children, list) and (node in children or parent in children):
                 raise ValueError("Incorrect childrens's element")
-            
+
         def valid_node(self, node):
             if node is not None and not isinstance(node, self.Seed):
                 raise TypeError("Invalid node type. Expected None or Tree.Node.Seed() object.")
-                
+
         def valid_parent(self, parent):
             if parent is not None and not isinstance(parent, self.Seed):
                 raise TypeError("Invalid type of parent's element. Expected None or Tree.Node.Seed() object.")
@@ -38,10 +38,41 @@ class Tree():
             if children is not None:
                 if not isinstance(children, list):
                     raise TypeError("Invalid children type. Expected None or list.")
-                else:          
+                else:
                     for i in children:
                         if not isinstance(i, self.Seed):
                             raise TypeError("Invalid children type. Expected list of Tree.Node.Seed() object.")
+
+        def add_child(self, child):
+            if not isinstance(child, self.Seed):
+                raise TypeError("Invalid type of children's element. Expected Tree.Node.Seed() object.")
+            if child == self.node or child == self.parent:
+                raise ValueError("Incorrect childrens's element")
+
+            if not self.children:
+                self.children = [child]
+            elif child in self.children:
+                raise ValueError(f"Child {child} already exist")
+            else:
+                self.children.append(child)
+
+        def remove_child(self, child):
+            try:
+                self.children.remove(child)
+            except Exception as e:
+                print(f'Impossible to remove child {child}:', e)
+
+        def set_parent(self, parent):
+            self.valid_parent(parent)
+            if parent is None or parent in self.children or parent == self.node:
+                raise ValueError("Incorrect parent's element")
+            self.parent = parent
+
+        def get_parent(self):
+            return self.parent
+
+        def get_children(self):
+            return self.children
 
         def __repr__(self):
             children = []
